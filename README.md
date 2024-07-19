@@ -34,5 +34,3 @@
 * Backend: NodeJS with Typescript
 * Frontend: ReactJS
 * Mobile(not decided yet): swift or ReactNative
-
-## Time estimation(TBD)
