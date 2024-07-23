@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 dotenv.config();
 
-const mongoURI = process.env.MONGO_URI || 'mongodb://root:example@127.0.0.1:27017/admin?authSource=admin';
+const mongoURI = process.env.MONGO_URI || 'mongodb://mongodb:27017/mydatabase';
 mongoose.connect(mongoURI).then(() => {
   console.log('Connected to MongoDB');
 }).catch((err: any) => {

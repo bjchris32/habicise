@@ -1,13 +1,28 @@
 version: '3.8'
 services:
+  node-server:
+    build:
+      context: ./server/
+      dockerfile: Dockerfile
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/mydatabase
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    volumes:
+      - ./server:/app
+    networks:
+      - node-network
   mongodb:
     image: mongo
     ports:
       - '27017:27017'
     volumes:
       - mongodbdata:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - node-network
 volumes:
   mongodbdata:
+networks:
+  node-network:
