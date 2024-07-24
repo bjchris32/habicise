@@ -25,11 +25,13 @@ services:
   react-client:
     build:
       context: ./client/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
-      - "4000:80"
+      - "4001:4001"
     depends_on:
       - node-server
+    volumes:
+      - ./client:/app
     networks:
       - node-network
 volumes:

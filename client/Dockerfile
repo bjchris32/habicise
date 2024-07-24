@@ -1,3 +1,4 @@
+# TODO: set different dockerfile for prod refering to https://blog.vishnuprasaath.dev/dockerize-react-app-for-dev-and-prod
 # Stage 1 react app
 FROM node:20 as build
 
