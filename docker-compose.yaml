@@ -22,6 +22,16 @@ services:
       - mongodbdata:/data/db
     networks:
       - node-network
+  react-client:
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
+    ports:
+      - "4000:80"
+    depends_on:
+      - node-server
+    networks:
+      - node-network
 volumes:
   mongodbdata:
 networks:
