@@ -1,20 +1,14 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { Habit } from "../../src/models/habit";
-
-
-let mongoServer: MongoMemoryServer;
+import { dbConnect, dbDisconnect } from "../utils/dbHandler"
 
 beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const mongoUri = await mongoServer.getUri();
-
-  await mongoose.connect(mongoUri);
+  await dbConnect();
 });
 
 afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
+  await dbDisconnect();
 });
 
 describe('Habit model test', () => {
