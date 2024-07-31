@@ -29,12 +29,3 @@ export const Habit = model<IHabit>('Habit', habitSchema);
 //   console.log(saveHabit)
 //   mongoose.disconnect();
 // })
-
-
-export function add(x: number, y: number): number {
-  return x + y;
-}
-
-export function multiply(x: number, y: number): number {
-  return x * y;
-}
