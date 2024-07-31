@@ -27,29 +27,16 @@ describe('Habit model test', () => {
     expect(savedHabit.name).toBe(habitData.name);
   });
 
-//   it('should not create user with invalid field', async () => {
-//     const userWithInvalidField = new User({ name: 'John Doe', email: 'john@example.com', nickname: 'Johnny' });
-//     let err;
-//     try {
-//       const savedUserWithInvalidField = await userWithInvalidField.save();
-//       err = savedUserWithInvalidField;
-//     } catch (error) {
-//       err = error;
-//     }
-//     expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
-//     expect(err.errors.nickname).toBeUndefined();
-//   });
-
-//   it('should not create user without required field', async () => {
-//     const userWithoutRequiredField = new User({ name: 'John Doe' });
-//     let err;
-//     try {
-//       const savedUserWithoutRequiredField = await userWithoutRequiredField.save();
-//       err = savedUserWithoutRequiredField;
-//     } catch (error) {
-//       err = error;
-//     }
-//     expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
-//     expect(err.errors.email).toBeDefined();
-//   });
+  it('should not create habit without required field', async () => {
+    const habitWithoutRequiredField = new Habit({ some_field_not_exist: 123 });
+    let err: any;
+    try {
+      const savedHabitWithoutRequiredField = await habitWithoutRequiredField.save();
+      err = savedHabitWithoutRequiredField;
+    } catch (error) {
+      err = error;
+    }
+    expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
+    expect(err.errors.name).toBeDefined();
+  });
 });
