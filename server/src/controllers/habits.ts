@@ -28,3 +28,43 @@ export const getHabit = async (req: Request, res: Response) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const listHabits = async (req: Request, res: Response) => {
+  try {
+    // TODO: filter with user id
+    const habits = await Habit.find();
+    if (!habits) return res.status(404).json({ message: 'Habits not found' });
+    res.status(200).json(habits);
+  } catch (error) {
+    assert(error instanceof Error)
+
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const updateHabit = async (req: Request, res: Response) => {
+  try {
+    const habit = await Habit.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!habit) return res.status(404).json({ message: 'Habit not found' });
+    res.status(200).json(habit);
+  } catch (error) {
+    assert(error instanceof Error)
+
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ message: error.message });
+    }
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteHabit = async (req: Request, res: Response) => {
+  try {
+    const habit = await Habit.findByIdAndDelete(req.params.id);
+    if (!habit) return res.status(404).json({ message: 'Habit not found' });
+    res.status(200).json({ message: 'Habit deleted successfully' });
+  } catch (error) {
+    assert(error instanceof Error)
+
+    res.status(400).json({ message: error.message });
+  }
+};
