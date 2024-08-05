@@ -32,7 +32,7 @@ export const getHabit = async (req: Request, res: Response) => {
 export const listHabits = async (req: Request, res: Response) => {
   try {
     // TODO: filter with user id
-    const habits = await Habit.find();
+    const habits = await Habit.find().sort('createdAt');
     if (!habits) return res.status(404).json({ message: 'Habits not found' });
     res.status(200).json(habits);
   } catch (error) {
