@@ -1,6 +1,4 @@
 // npm test -- test/controllers/habits.test.ts
-// import { createHabit, getHabit, updateHabit, deleteHabit } from "../../src/controllers/habits";
-import { createHabit, getHabit } from "../../src/controllers/habits";
 import { dbConnect, dbDisconnect } from "../utils/dbHandler"
 import express, { Express, Request, Response } from "express";
 import router from '../../src/config/routes';
@@ -54,11 +52,17 @@ describe("Habits functions", () => {
     const savedHabit = await habit.save();
     const response = await request(app)
       .put(`/api/habits/${savedHabit._id}`)
-      .send({ name: 'Habit not your business' });;
+      .send({ name: 'Habit not your business' });
     expect(response.status).toBe(200);
     expect(response.body.name).toBe ('Habit not your business');
   });
 
-  it("should delete a habit document", () => {
+  it("should delete a habit document", async () => {
+    const habit = new Habit({ name: 'Habit to be removed' });
+    const savedHabit = await habit.save();
+    const response = await request(app)
+      .delete(`/api/habits/${savedHabit._id}`)
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe ('Habit deleted successfully');
   });
 });
