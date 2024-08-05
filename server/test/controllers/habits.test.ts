@@ -12,11 +12,11 @@ const app = express();
 app.use(express.json());
 app.use('/api', router);
 
-beforeAll(async () => {
+beforeEach(async () => {
   await dbConnect();
 });
 
-afterAll(async () => {
+afterEach(async () => {
   await dbDisconnect();
 });
 
@@ -35,6 +35,18 @@ describe("Habits functions", () => {
     const response = await request(app).get(`/api/habits/${savedHabit._id}`);
     expect(response.status).toBe(200);
     expect(response.body.name).toBe('Habit 3');
+  });
+
+  it("should list habit documents", async () => {
+    const habit1 = new Habit({ name: 'Habit 7' });
+    const savedHabit1 = await habit1.save();
+    const habit2 = new Habit({ name: 'Habit 8' });
+    const savedHabit2 = await habit2.save();
+    const response = await request(app).get(`/api/habits/`);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(2);
+    expect(response.body[0].name).toBe('Habit 7');
+    expect(response.body[1].name).toBe('Habit 8');
   });
 
   it("should update a habit document", async () => {
