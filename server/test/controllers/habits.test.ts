@@ -43,8 +43,8 @@ describe("Habits functions", () => {
     const response = await request(app).get(`/api/habits/`);
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(2);
-    expect(response.body[0].name).toBe('Habit 7');
-    expect(response.body[1].name).toBe('Habit 8');
+    expect(response.body[0].name).toBe(savedHabit1.name);
+    expect(response.body[1].name).toBe(savedHabit2.name);
   });
 
   it("should update a habit document", async () => {
