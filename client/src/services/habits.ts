@@ -7,7 +7,8 @@ export interface IHabit {
   name: string;
 }
 
-export const IHabit = async (): Promise<IHabit[]> => {
+export const getHabits = async (): Promise<IHabit[]> => {
+  console.log("API_URL", API_URL)
   const response = await axios.get<IHabit[]>(`${API_URL}/habits`);
   return response.data;
 };
