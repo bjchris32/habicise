@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IHabit, createHabit, updateHabit } from '../services/habits';
+import { IHabit, createHabit } from '../services/habits';
 
 interface HabitFormProps {
   onSave: () => void;
@@ -15,11 +15,7 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (habit._id) {
-      await updateHabit(habit._id, habit);
-    } else {
-      await createHabit(habit);
-    }
+    await createHabit(habit);
     setHabit({ name: '' });
     onSave();
   };
