@@ -8,7 +8,16 @@ export interface IHabit {
 }
 
 export const getHabits = async (): Promise<IHabit[]> => {
-  console.log("API_URL", API_URL)
   const response = await axios.get<IHabit[]>(`${API_URL}/habits`);
+  return response.data;
+};
+
+export const createHabit = async (habit: IHabit): Promise<IHabit[]> => {
+  const response = await axios.post<IHabit[]>(`${API_URL}/habits`, habit);
+  return response.data;
+};
+
+export const updateHabit = async (id: String, habit: IHabit): Promise<IHabit[]> => {
+  const response = await axios.put<IHabit[]>(`${API_URL}/habits/${id}`, habit);
   return response.data;
 };

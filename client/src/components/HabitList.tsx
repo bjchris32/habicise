@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { IHabit, getHabits } from '../services/habits';
+import { IHabit } from '../services/habits';
 
-const HabitList = ({}) => {
-  const [habits, setHabits] = useState<IHabit[]>([]);
+interface HabitListProps {
+  habits: IHabit[];
+}
 
-  useEffect(() => {
-    fetchHabits();
-  }, []);
-
-  const fetchHabits = async () => {
-    const data = await getHabits();
-    setHabits(data);
-  };
-
+const HabitList: React.FC<HabitListProps> = ({ habits }) => {
   return (
     <div>
       <h1>Habits</h1>
