@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from 'mongoose';
 import router from './config/routes';
 import cors from 'cors';
+import winston from 'winston';
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-const winston = require("winston");
+app.use(express.json())
+
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.json(),
@@ -30,6 +32,7 @@ const logger = winston.createLogger({
 app.use((req, res, next) => {
   // Log an info message for each incoming request
   logger.info(`Received a ${req.method} request for ${req.url}`);
+  logger.log("info", "Request received: ", req);
   next();
 });
 
@@ -40,7 +43,6 @@ app.use((err: any, req: any, res: any, next: any) => {
 });
 
 app.get("/", (req: Request, res: Response) => {
-  logger.log("info", "Request received: ", req);
   res.send("Express + TypeScript Server");
 });
 
