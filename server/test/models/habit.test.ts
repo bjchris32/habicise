@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 import { Habit } from "../../src/models/habit";
 import { dbConnect, dbDisconnect } from "../utils/dbHandler"
 
@@ -12,13 +11,14 @@ afterAll(async () => {
 });
 
 describe('Habit model test', () => {
-  it('should create & save habit successfully', async () => {
+  it('should create & save habit successfully without commits', async () => {
     const habitData = { name: 'Habit 1' };
     const habit = new Habit(habitData);
     const savedHabit = await habit.save();
 
     expect(savedHabit._id).toBeDefined();
     expect(savedHabit.name).toBe(habitData.name);
+    expect(savedHabit?.commits).toEqual([]);
   });
 
   it('should not create habit without required field', async () => {
