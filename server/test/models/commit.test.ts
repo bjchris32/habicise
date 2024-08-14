@@ -24,7 +24,7 @@ describe('Commit model test', () => {
     savedHabit.commits.push(savedCommit1._id, savedCommit2._id);
     await savedHabit.save();
 
-    const finalHabit =  await Habit.findById(habit._id).populate<{ commits: ICommit[] }>('commits').exec();
+    const finalHabit =  await Habit.findById(habit._id).populate<{ commits: ICommit[] }>('commits')
     expect(finalHabit).not.toBeNull();
     expect(finalHabit?.commits.length).toBe(2);
     expect(finalHabit?.commits[0].description).toBe('commit 1 description');
