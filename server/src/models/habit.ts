@@ -1,9 +1,9 @@
-import { Schema, model, connect } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IHabit {
   name: string;
-  commits: Schema.Types.ObjectId[];
+  commits: Types.ObjectId[];
 }
 
 // 2. Create a Schema corresponding to the document interface.
