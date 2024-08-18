@@ -30,4 +30,19 @@ describe('Commit model test', () => {
     expect(finalHabit?.commits[0].description).toBe('commit 1 description');
     expect(finalHabit?.commits[1].description).toBe('commit 2 description');
   });
+
+  it('should not create & save commit without habit', async () => {
+    const commit1 = new Commit({ description: 'commit 1 description' });
+
+    let err: any;
+    try {
+      const savedCommitWithoutParent = await commit1.save();
+
+      err = savedCommitWithoutParent;
+    } catch (error) {
+      err = error;
+    }
+    expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
+    expect(err.errors).toBeDefined();
+  });
 });
