@@ -39,6 +39,8 @@ describe("Habits functions", () => {
     expect(response.body?.description).toBe('commit to habit');
     expect(response.body?.length).toBe(5);
     expect(response.body?.habit.toString()).toEqual(habit._id.toString());
+
+    // TODO: check habit has the newly created commit
   });
 
   it("should read a commit document", async () => {
@@ -82,5 +84,7 @@ describe("Habits functions", () => {
       .delete(`/api/commits/${savedCommit._id}`)
     expect(response.status).toBe(200);
     expect(response.body.message).toBe ('Commit deleted successfully');
+
+    // TODO: check commit is deleted in habit
   });
 });
