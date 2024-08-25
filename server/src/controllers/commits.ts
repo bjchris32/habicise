@@ -33,8 +33,7 @@ export const getCommit = async (req: Request, res: Response) => {
 export const listCommits = async (req: Request, res: Response) => {
   try {
     // TODO: filter with user id
-    const habit = await Habit.findById(req.params.id).populate<{ commits: ICommit[] }>('commits');
-    const commits = habit?.commits
+    const commits = await Commit.find({ habit: req.params.id });
     if (!commits) return res.status(404).json({ message: 'Commits not found' });
     res.status(200).json(commits);
   } catch (error) {
