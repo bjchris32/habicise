@@ -57,9 +57,6 @@ describe("Habits functions", () => {
     const commit2 = new Commit({ description: 'commit to habit 2', length: 5, habit: habit._id });
     const savedCommit2 = await commit2.save();
 
-    habit.commits.push(savedCommit1._id, savedCommit2._id);
-    await habit.save();
-
     const response = await request(app).get(`/api/habit/${habit._id}/commits`);
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(2);
