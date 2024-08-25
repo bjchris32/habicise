@@ -22,7 +22,6 @@ const CommitsWidget: React.FC<CommitsWidgetProps> = ({ habit }) => {
 
   const fetchCommits = async (habitId: string) => {
     const data = await getCommits(habitId);
-    console.log("data in fetchCommits = ", data);
     setCommits(data);
   };
 
