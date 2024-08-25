@@ -9,15 +9,15 @@ interface HabitListProps {
 const HabitList: React.FC<HabitListProps> = ({ habits }) => {
   return (
     <div>
-      <h1>Habits</h1>
-      <ul>
+      <h1>Habicise</h1>
+      <ol>
         {habits.map((habit) => (
           <li key={habit._id}>
-            {habit.name}
+            <h2>{habit.name}</h2>
             <CommitsWidget habit={habit}/>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   )
 }
