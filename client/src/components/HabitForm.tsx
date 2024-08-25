@@ -22,6 +22,7 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="name">Add your new habit: </label>
       <input
         type="text"
         name="name"
