@@ -7,6 +7,7 @@ export interface ICommit {
   description: string;
   length: number;
   habit?: string;
+  createdAt?: string;
 }
 
 export const getCommits = async (habitId: string): Promise<ICommit[]> => {

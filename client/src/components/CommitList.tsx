@@ -12,7 +12,7 @@ const CommitList: React.FC<CommitListProps> = ({ commits }) => {
       <ul>
         {commits?.map((commit) => (
           <li key={commit._id}>
-            {commit.description} with time: {commit.length}
+            {new Date(commit.createdAt as string).toString()}, {commit.description} with time: {commit.length}
           </li>
         ))}
       </ul>

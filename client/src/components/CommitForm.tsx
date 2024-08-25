@@ -26,6 +26,7 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="description">Describe what you did: </label>
       <input
         type="text"
         name="description"
@@ -34,6 +35,7 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
         placeholder="Description"
         required
       />
+      <label htmlFor="length">How long you commited in minutes: </label>
       <input
         type="text"
         name="length"
