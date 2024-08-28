@@ -28,6 +28,7 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
     <Box
       component="form"
       sx={{
+        display: 'flex',      // Flexbox container
         gap: 1               // Space between elements
       }}
       onSubmit={handleSubmit}
@@ -37,7 +38,6 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
         <TextField
           required
           label="name"
-          value={habit.name}
           onChange={handleChange}
         />
 
@@ -48,7 +48,7 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
         Save
       </Button>
     </Box>
-    <form onSubmit={handleSubmit}>
+    {/* <form onSubmit={handleSubmit}>
       <label htmlFor="name">Add your new habit: </label>
       <input
         type="text"
@@ -59,9 +59,8 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
         required
       />
       <Button type="submit" variant="contained">Save</Button>
-    </form>
+    </form> */}
     </>
-
   );
 };
 
