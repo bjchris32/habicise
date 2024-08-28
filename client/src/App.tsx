@@ -1,9 +1,10 @@
 import React, { useState, useEffect }  from 'react';
-import logo from './logo.svg';
 import './App.css';
 import HabitList from './components/HabitList';
 import HabitForm from './components/HabitForm';
 import { IHabit, getHabits } from './services/habits';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 function App() {
   const [habits, setHabits] = useState<IHabit[]>([]);
@@ -22,10 +23,12 @@ function App() {
   };
 
   return (
-    <div>
-      <HabitForm onSave={handleSave}/>
-      <HabitList habits={habits}/>
-    </div>
+    <Container maxWidth="md">
+      <Box sx={{ my: 10 }}>
+        <HabitForm onSave={handleSave}/>
+        <HabitList habits={habits}/>
+      </Box>
+    </Container>
   );
 }
 
