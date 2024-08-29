@@ -24,7 +24,6 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
   };
 
   return (
-    <>
     <Box
       component="form"
       sx={{
@@ -35,12 +34,13 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
       noValidate
       autoComplete="off"
     >
-        <TextField
-          required
-          label="name"
-          onChange={handleChange}
-        />
-
+      <TextField
+        required
+        label="name"
+        name="name"
+        value={habit.name}
+        onChange={handleChange}
+      />
       <Button
         type="submit"
         variant="contained"
@@ -48,19 +48,6 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
         Save
       </Button>
     </Box>
-    {/* <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Add your new habit: </label>
-      <input
-        type="text"
-        name="name"
-        value={habit.name}
-        onChange={handleChange}
-        placeholder="Name"
-        required
-      />
-      <Button type="submit" variant="contained">Save</Button>
-    </form> */}
-    </>
   );
 };
 

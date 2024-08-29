@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { IHabit } from '../services/habits';
 import { ICommit, createCommit } from '../services/commits';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 interface CommitFormProps {
   onSave: (habitId: string) => void;
@@ -25,27 +28,37 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="description">Describe what you did: </label>
-      <input
-        type="text"
+    <Box
+      component="form"
+      sx={{
+        display: 'flex',      // Flexbox container
+        gap: 1               // Space between elements
+      }}
+      onSubmit={handleSubmit}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        required
+        label="description"
         name="description"
         value={commit.description}
         onChange={handleChange}
-        placeholder="Description"
-        required
       />
-      <label htmlFor="length">How long you commited in minutes: </label>
-      <input
-        type="text"
+      <TextField
+        required
+        label="time committed in minutes"
         name="length"
         value={commit.length}
         onChange={handleChange}
-        placeholder="Length"
-        required
       />
-      <button type="submit">Add Commit</button>
-    </form>
+      <Button
+        style={{textTransform: 'none'}}
+        type="submit"
+      >
+        COMMIT to {habit.name}
+      </Button>
+    </Box>
   );
 };
 
