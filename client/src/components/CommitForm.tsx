@@ -12,14 +12,23 @@ interface CommitFormProps {
 
 const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
   const [commit, setCommit] = useState<ICommit>({ description: '', length: 0 });
+  const [error, setError] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCommit((prevCommit) => ({ ...prevCommit, [name]: value }));
+    if (e.target.value.trim() !== '') {
+      setError(false);  // Reset error if input is not empty
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (commit.description.trim() === '') {
+      setError(true);  // Show error if input is empty
+      return
+    }
+
     if (!!habit._id) {
       await createCommit({...commit, habit: habit._id});
       setCommit({ description: '', length: 0 });
@@ -32,6 +41,7 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
       component="form"
       sx={{
         display: 'flex',      // Flexbox container
+        alignItems: 'center',
         gap: 1               // Space between elements
       }}
       onSubmit={handleSubmit}
@@ -40,10 +50,12 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
     >
       <TextField
         required
-        label="description"
+        label="Describe what you did today"
         name="description"
         value={commit.description}
         onChange={handleChange}
+        error={error}
+        helperText={error ? 'Commit description is required' : ''}  // Show error message
       />
       <TextField
         required
