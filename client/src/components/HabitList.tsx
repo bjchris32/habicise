@@ -9,7 +9,6 @@ interface HabitListProps {
 const HabitList: React.FC<HabitListProps> = ({ habits }) => {
   return (
     <div>
-      <h1>Habicise</h1>
       <ol>
         {habits.map((habit) => (
           <li key={habit._id}>

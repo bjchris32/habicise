@@ -5,6 +5,7 @@ import HabitForm from './components/HabitForm';
 import { IHabit, getHabits } from './services/habits';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 function App() {
   const [habits, setHabits] = useState<IHabit[]>([]);
@@ -23,8 +24,14 @@ function App() {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Box sx={{ my: 10 }}>
+        <Typography variant="h3" sx={{ mb: 2 }} >
+          Habicise
+          <Typography sx={{ color: 'text.secondary' }} >
+            cultivate your new habit in streaks like doing exercise
+          </Typography>
+        </Typography>
         <HabitForm onSave={handleSave}/>
         <HabitList habits={habits}/>
       </Box>
