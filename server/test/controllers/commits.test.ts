@@ -64,6 +64,26 @@ describe("Habits functions", () => {
     expect(response.body[1]?.description).toBe(savedCommit2.description);
   });
 
+  it("should list commit documents by date", async () => {
+    const commitsInputDate = [
+      { description: 'Commit 1', habit: habit._id, createdAt: new Date('2024-09-01T10:00:00Z') },
+      { description: 'Commit 2', habit: habit._id, createdAt: new Date('2024-09-01T15:30:00Z') },
+      { description: 'Commit 3', habit: habit._id, createdAt: new Date('2024-09-02T11:00:00Z') },
+      { description: 'Commit 4', habit: habit._id, createdAt: new Date('2024-09-03T08:00:00Z') },
+    ];
+
+    await Commit.insertMany(commitsInputDate);
+    const response = await request(app).get(`/api/habit/${habit._id}/commitsByDate`);
+
+    const expected = [
+      { _id: '2024-09-01', count: 2 },
+      { _id: '2024-09-02', count: 1 },
+      { _id: '2024-09-03', count: 1 },
+    ];
+
+    expect(response.body).toEqual(expected);
+  });
+
   it("should update a commit document", async () => {
     const commit = new Commit({ description: 'commit to habit 1', length: 5, habit: habit._id });
     const savedCommit = await commit.save();
