@@ -1,43 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { ICommit } from '../services/commits';
+import { ICommit, ICommitByDateOutput } from '../services/commits';
+import Typography from '@mui/material/Typography';
 import ActivityCalendar from 'react-activity-calendar';
 
 interface CommitListProps {
-  commits?: ICommit[];
+  commitsByDate: ICommitByDateOutput[] | [];
 }
 
-const CommitList: React.FC<CommitListProps> = ({ commits }) => {
+const CommitList: React.FC<CommitListProps> = ({ commitsByDate }) => {
+  // TODO: adjust the date range instead of adding dumb data
   const data = [
     {
-      "date": "2023-06-14",
+      "date": "2023-12-14",
       "count": 2,
       "level": 1
     },
-    {
-      "date": "2023-06-22",
-      "count": 16,
-      "level": 3
-    }
+    ...commitsByDate
   ]
-  if (commits && commits.length > 0) {
+
+  if (commitsByDate && commitsByDate.length > 0) {
     return (
       <div>
-        <h4>Commits</h4>
-        <ul>
-          {commits?.map((commit) => (
-            <li key={commit._id}>
-              {new Date(commit.createdAt as string).toString()}, {commit.description} with time: {commit.length}
-            </li>
-          ))}
-        </ul>
-
-        <ActivityCalendar data={data} />
+        <Typography variant="h5" sx={{ mb: 2 }} >
+          Your past commitments:
+        </Typography>
+        <ActivityCalendar
+          maxLevel={1}
+          data={data}
+          blockMargin={5}
+          hideMonthLabels={false}
+          showWeekdayLabels={true}
+          // TODO: change the theme
+          theme={{
+            light: ['hsl(0, 0%, 92%)', 'rebeccapurple'],
+            dark: ['hsl(0, 0%, 22%)', 'hsl(225,92%,77%)'],
+          }}
+        />
       </div>
     )
   } else {
     return (
       <>
-        add your first commit!
+        <Typography sx={{ mb: 2 }} >
+          Commit your effort in the above form.
+        </Typography>
       </>
     )
   }

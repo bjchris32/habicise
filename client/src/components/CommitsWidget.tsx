@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IHabit } from '../services/habits';
-import { ICommit, getCommits } from '../services/commits';
+import { ICommitByDateOutput, getCommitsByDate } from '../services/commits';
 import CommitList from './CommitList';
 import CommitForm from './CommitForm';
 
@@ -9,26 +9,27 @@ interface CommitsWidgetProps {
 }
 
 const CommitsWidget: React.FC<CommitsWidgetProps> = ({ habit }) => {
-  const [commits, setCommits] = useState<ICommit[]>([]);
+  const [commitsByDate, setCommitsByDate] = useState<ICommitByDateOutput[]>([]);
+
   useEffect(() => {
     if (!!habit._id) {
-      fetchCommits(habit._id);
+      fetchCommitsByDate(habit._id);
     }
   }, []);
 
   const handleCommitSave = async (habitId: string) => {
-    fetchCommits(habitId);
+    fetchCommitsByDate(habitId);
   };
 
-  const fetchCommits = async (habitId: string) => {
-    const data = await getCommits(habitId);
-    setCommits(data);
+  const fetchCommitsByDate = async (habitId: string) => {
+    const data = await getCommitsByDate(habitId);
+    setCommitsByDate(data);
   };
 
   return (
     <div>
       <CommitForm onSave={handleCommitSave} habit={habit}/>
-      <CommitList commits={commits}/>
+      <CommitList commitsByDate={commitsByDate}/>
     </div>
   )
 }
