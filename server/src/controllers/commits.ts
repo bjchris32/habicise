@@ -1,7 +1,7 @@
-import { Habit } from "../../src/models/habit";
 import { Commit, ICommit } from "../../src/models/commit";
 import { Request, Response } from 'express';
 import assert from 'assert';
+import mongoose from 'mongoose';
 
 export const createCommit = async (req: Request, res: Response) => {
   try {
@@ -36,6 +36,34 @@ export const listCommits = async (req: Request, res: Response) => {
     const commits = await Commit.find({ habit: req.params.id });
     if (!commits) return res.status(404).json({ message: 'Commits not found' });
     res.status(200).json(commits);
+  } catch (error) {
+    assert(error instanceof Error)
+
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const listCommitsByDate = async (req: Request, res: Response) => {
+  try {
+    // TODO: filter with user id
+    const commitsByDate = await Commit.aggregate([
+      { $match : { habit: new mongoose.Types.ObjectId(req.params.id) } },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+
+          },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { _id: 1 }, // Sort by date for consistency in results
+      },
+    ]);
+
+    if (!commitsByDate) return res.status(404).json({ message: 'commitsByDate not found' });
+    res.status(200).json(commitsByDate);
   } catch (error) {
     assert(error instanceof Error)
 

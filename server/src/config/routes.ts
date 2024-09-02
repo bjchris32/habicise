@@ -19,6 +19,7 @@ router.delete('/habits/:id', habits.deleteHabit);
 router.post('/commits', commits.createCommit);
 router.get('/commits/:id', commits.getCommit);
 router.get('/habit/:id/commits', commits.listCommits);
+router.get('/habit/:id/commitsByDate', commits.listCommitsByDate);
 router.put('/commits/:id', commits.updateCommit);
 router.delete('/commits/:id', commits.deleteCommit);
 
