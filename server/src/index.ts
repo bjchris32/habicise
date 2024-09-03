@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import router from './config/routes';
 import cors from 'cors';
 import winston from 'winston';
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json())
 
 const logger = winston.createLogger({

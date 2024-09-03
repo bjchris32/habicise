@@ -1,3 +1,4 @@
+import * as auths from '../controllers/auths'
 import * as habits from '../controllers/habits'
 import * as commits from '../controllers/commits'
 
@@ -8,6 +9,8 @@ import * as commits from '../controllers/commits'
 import { Router } from 'express';
 
 const router = Router();
+
+router.post('/register', auths.registerUser);
 
 router.post('/habits', habits.createHabit);
 router.get('/habits/:id', habits.getHabit);
