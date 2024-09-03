@@ -4,6 +4,7 @@ import { ICommit, createCommit } from '../services/commits';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 interface CommitFormProps {
   onSave: (habitId: string) => void;
@@ -40,14 +41,21 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
     <Box
       component="form"
       sx={{
-        display: 'flex',      // Flexbox container
-        alignItems: 'center',
-        gap: 1               // Space between elements
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,  // Space between elements
+        p: 2,    // Padding around the form
+        borderRadius: 1,
+        boxShadow: 5,
+        bgcolor: 'background.paper'
       }}
       onSubmit={handleSubmit}
       noValidate
       autoComplete="off"
     >
+      <Typography variant="h6" sx={{ mb: 2 }}>
+        Commit Details
+      </Typography>
       <TextField
         required
         label="Describe what you did today"
@@ -55,20 +63,25 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
         value={commit.description}
         onChange={handleChange}
         error={error}
-        helperText={error ? 'Commit description is required' : ''}  // Show error message
+        helperText={error ? 'Commit description is required' : ''}
+        fullWidth
       />
       <TextField
         required
-        label="time committed in minutes"
+        label="Time committed in minutes"
         name="length"
+        type="number"  // Ensure input is numeric
         value={commit.length}
         onChange={handleChange}
+        fullWidth
       />
       <Button
-        style={{textTransform: 'none'}}
         type="submit"
+        variant="contained"  // Use contained variant for a solid button
+        color="primary"
+        sx={{ textTransform: 'none' }}
       >
-        COMMIT to {habit.name}
+        Commit to {habit.name}
       </Button>
     </Box>
   );

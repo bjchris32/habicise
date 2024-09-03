@@ -1,7 +1,7 @@
 import React from 'react';
 import { IHabit } from '../services/habits';
 import CommitsWidget from './CommitsWidget';
-import { Card, CardContent, CardHeader, Typography, List, ListItem } from '@mui/material';
+import { Card, CardContent, CardHeader, List, ListItem } from '@mui/material';
 
 interface HabitListProps {
   habits: IHabit[];
