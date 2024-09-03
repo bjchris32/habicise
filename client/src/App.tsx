@@ -24,16 +24,31 @@ function App() {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ my: 10 }}>
-        <Typography variant="h3" sx={{ mb: 2 }} >
+    <Container maxWidth={false}>
+      <Box
+        width="100%"
+        bgcolor="lightblue"
+        alignItems="center"
+        justifyContent="center"
+        display="flex"
+        flexDirection="column"
+        sx={{ my: 10 }}>
+        <Typography variant="h3" sx={{ mb: 2, textAlign: 'center' }}>
           Habicise
-          <Typography sx={{ color: 'text.secondary' }} >
-            cultivate your new habit in streaks like doing exercise
+          <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'center', mb: 4 }}>
+            Cultivate your new habit in streaks like doing exercise
           </Typography>
         </Typography>
-        <HabitForm onSave={handleSave}/>
-        <HabitList habits={habits}/>
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          width="100%" // Ensures the inner Box spans the full width of its parent
+        >
+          <HabitForm onSave={handleSave} />
+          <HabitList habits={habits} />
+        </Box>
       </Box>
     </Container>
   );

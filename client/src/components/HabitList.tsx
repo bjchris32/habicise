@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { IHabit } from '../services/habits';
 import CommitsWidget from './CommitsWidget';
+import { Card, CardContent, CardHeader, Typography, List, ListItem } from '@mui/material';
 
 interface HabitListProps {
   habits: IHabit[];
@@ -8,16 +9,21 @@ interface HabitListProps {
 
 const HabitList: React.FC<HabitListProps> = ({ habits }) => {
   return (
-    <div>
-      <ol>
-        {habits.map((habit) => (
-          <li key={habit._id}>
-            <h2>{habit.name}</h2>
-            <CommitsWidget habit={habit}/>
-          </li>
-        ))}
-      </ol>
-    </div>
+    <List>
+      {habits.map((habit) => (
+        <ListItem key={habit._id} sx={{ mb: 2 }}>
+          <Card sx={{ width: '100%' }}>
+            <CardHeader
+              title={habit.name}
+              sx={{ bgcolor: 'primary.main', color: 'white' }}
+            />
+            <CardContent>
+              <CommitsWidget habit={habit} />
+            </CardContent>
+          </Card>
+        </ListItem>
+      ))}
+    </List>
   )
 }
 
