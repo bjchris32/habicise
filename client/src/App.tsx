@@ -47,7 +47,7 @@ function App() {
           width="100%" // Ensures the inner Box spans the full width of its parent
         >
           <HabitForm onSave={handleSave} />
-          <HabitList habits={habits} />
+          { habits.length > 0 ? <HabitList habits={habits} /> : null }
         </Box>
       </Box>
     </Container>
