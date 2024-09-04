@@ -1,25 +1,8 @@
 import React, { useState, useEffect }  from 'react';
-import HabitList from '../components/HabitList';
-import HabitForm from '../components/HabitForm';
-import { IHabit, getHabits } from '../services/habits';
 import { Container, Box, Typography } from '@mui/material';
+import SignUpForm from '../components/SignUpForm'
 
 const HomePage: React.FC = () => {
-  const [habits, setHabits] = useState<IHabit[]>([]);
-
-  useEffect(() => {
-    fetchHabits();
-  }, []);
-
-  const handleSave = async () => {
-    fetchHabits();
-  };
-
-  const fetchHabits = async () => {
-    const data = await getHabits();
-    setHabits(data);
-  };
-
   return (
     <Container maxWidth={false}>
       <Box
@@ -36,16 +19,9 @@ const HomePage: React.FC = () => {
             Cultivate your new habit in streaks like doing exercise
           </Typography>
         </Typography>
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          width="100%" // Ensures the inner Box spans the full width of its parent
-        >
-          <HabitForm onSave={handleSave} />
-          { habits.length > 0 ? <HabitList habits={habits} /> : null }
-        </Box>
+
+        <SignUpForm/>
+
       </Box>
     </Container>
   );
