@@ -17,8 +17,12 @@ mongoose.connect(mongoURI).then(() => {
 
 const app: Express = express();
 const port = process.env.PORT || 4002;
+const frontend_port = process.env.FRONTEND_PORT || 4001;
 
-app.use(cors());
+app.use(cors({
+  origin: `http://localhost:${frontend_port}`,
+  credentials: true, // Allow cookies to be sent
+}));
 app.use(cookieParser());
 app.use(express.json())
 

@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL as string;
+import axiosInstance from "../api/axiosInstance";
 
 export interface IUserRegistrationResponse {
   _id?: string;
@@ -27,13 +26,13 @@ export interface IUserLoginRequest {
 
 export const registerUser = async (registrationData: IUserRegistrationRequest): Promise<IUserRegistrationResponse> => {
   // TODO: error handling
-  const response = await axios.post<IUserRegistrationRequest>(`${API_URL}/register`, registrationData);
+  const response = await axiosInstance.post<IUserRegistrationRequest>('/register', registrationData);
   return response.data;
 };
 
 export const loginUser = async (auth: IUserLoginRequest): Promise<IUserLoginResponse> => {
   // TODO: error handling
-  const response = await axios.post<IUserLoginRequest>(`${API_URL}/login`, auth);
+  const response = await axiosInstance.post<IUserLoginRequest>('/login', auth);
   return response.data;
 };
 
