@@ -10,6 +10,7 @@ const registerUser = async (req: Request, res: Response) => {
     res.status(400).json({ message: "The user already exists" });
   }
 
+  // TODO: rescue error when create the user
   const user = await User.create({
     name,
     email,
