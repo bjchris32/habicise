@@ -1,6 +1,5 @@
 import React, { useState, useEffect }  from 'react';
 import { Container, Box, Typography } from '@mui/material';
-import SignUpForm from '../components/SignUpForm'
 
 const HomePage: React.FC = () => {
   return (
@@ -19,9 +18,6 @@ const HomePage: React.FC = () => {
             Cultivate your new habit in streaks like doing exercise
           </Typography>
         </Typography>
-
-        <SignUpForm/>
-
       </Box>
     </Container>
   );
