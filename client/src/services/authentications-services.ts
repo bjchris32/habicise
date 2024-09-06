@@ -2,25 +2,38 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL as string;
 
-export interface IAuthOutput {
+export interface IUserRegistrationResponse {
   _id?: string;
   name: string;
   email: string;
 }
 
-export interface IAuthInput {
+export interface IUserRegistrationRequest {
   name: string;
   email: string;
   password: string;
 }
 
-export const registerUser = async (auth: IAuthInput): Promise<IAuthOutput> => {
-  const response = await axios.post<IAuthInput>(`${API_URL}/register`, auth);
+export interface IUserLoginResponse {
+  _id?: string;
+  name?: string;
+  email: string;
+}
+
+export interface IUserLoginRequest {
+  email: string;
+  password: string;
+}
+
+export const registerUser = async (registrationData: IUserRegistrationRequest): Promise<IUserRegistrationResponse> => {
+  // TODO: error handling
+  const response = await axios.post<IUserRegistrationRequest>(`${API_URL}/register`, registrationData);
   return response.data;
 };
 
-export const authenticateUser = async (auth: IAuthInput): Promise<IAuthOutput> => {
-  const response = await axios.post<IAuthInput>(`${API_URL}/login`, auth);
+export const loginUser = async (auth: IUserLoginRequest): Promise<IUserLoginResponse> => {
+  // TODO: error handling
+  const response = await axios.post<IUserLoginRequest>(`${API_URL}/login`, auth);
   return response.data;
 };
 

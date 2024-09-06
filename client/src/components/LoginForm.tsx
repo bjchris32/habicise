@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { IUserRegistrationRequest, registerUser } from '../services/authentications-services';
+import { IUserLoginRequest, loginUser } from '../services/authentications-services';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-interface SignUpFormProps {
+interface LoginFormProps {
   onSave: () => void;
 }
 
-const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
-  const initialState = { name: '', email: '', password: '' };
-  const initialError = { name: false, email: false, password: false };
-  const [auth, setAuth] = useState<IUserRegistrationRequest>(initialState);
+const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
+  const initialState = { email: '', password: '' };
+  const initialError = { email: false, password: false };
+  const [auth, setAuth] = useState<IUserLoginRequest>(initialState);
   const [error, setError] = useState(initialError);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,10 +24,6 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (auth.name.trim() === '') {
-      setError((prevError) => ({ ...prevError, name: true }));
-      return
-    }
     if (auth.email.trim() === '') {
       setError((prevError) => ({ ...prevError, email: true }));
       return
@@ -36,7 +32,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
       setError((prevError) => ({ ...prevError, password: true }));
       return
     }
-    await registerUser(auth);
+    await loginUser(auth);
     setAuth(initialState);
     onSave();
   };
@@ -53,15 +49,6 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
       noValidate
       autoComplete="off"
     >
-      <TextField
-        required
-        label="User Name"
-        name="name"
-        value={auth.name}
-        onChange={handleChange}
-        error={error.name}
-        helperText={error.name ? 'User Name is required' : ''}
-      />
       <TextField
         required
         label="Email"
@@ -90,4 +77,4 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
   );
 };
 
-export default SignUpForm;
+export default LoginForm;
