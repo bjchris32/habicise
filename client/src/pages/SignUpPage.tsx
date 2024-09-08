@@ -1,10 +1,13 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 import SignUpForm from '../components/SignUpForm'
+import { useNavigate } from 'react-router-dom';
 
 const SignUpPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleSave = async () => {
-    console.log("sign up the user");
+    navigate('/');
   };
 
   return (
