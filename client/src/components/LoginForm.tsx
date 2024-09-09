@@ -71,7 +71,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
         type="submit"
         variant="contained"
       >
-        Sign Up
+        Login
       </Button>
     </Box>
   );
