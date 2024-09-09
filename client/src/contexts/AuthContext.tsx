@@ -8,16 +8,7 @@ interface AuthContextType {
 }
 
 // Create the context with a default value
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-// Create a custom hook to use the AuthContext
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Define the props for the AuthProvider component
 interface AuthProviderProps {
