@@ -1,20 +1,50 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useContext }  from 'react';
 import './App.css';
 import HabitList from './components/HabitList';
 import HabitForm from './components/HabitForm';
 import { IHabit, getHabits } from './services/habits';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 
+import { AuthContext } from './contexts/AuthContext';
+
+
 function App() {
+  const authContext = useContext(AuthContext); // Directly use useContext
+  if (!authContext) {
+    throw new Error('LoginForm must be used within an AuthProvider');
+  }
+  const { isLoggedIn, login, logout } = authContext;
+
   return (
     <Router>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Habicise
+          </Typography>
+          {isLoggedIn ? (
+            <Button color="inherit" onClick={logout}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button color="inherit" onClick={login}>
+                Login
+              </Button>
+              <Button color="inherit">Signup</Button>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />
