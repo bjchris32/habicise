@@ -14,6 +14,7 @@ const router = Router();
 // auth
 router.post('/register', auths.registerUser);
 router.post('/login', auths.authenticateUser);
+router.get('/auth/check', authenticate, auths.authCheckUser);
 router.use('/habits', authenticate);
 router.use('/commits', authenticate);
 router.use('/habit', authenticate);

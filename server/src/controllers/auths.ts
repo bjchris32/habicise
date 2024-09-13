@@ -45,9 +45,13 @@ const authenticateUser = async (req: Request, res: Response) => {
   }
 };
 
+const authCheckUser = async (req: Request, res: Response) => {
+  res.status(200).json({ message: "User is found" });
+};
+
 const logoutUser = (req: Request, res: Response) => {
   clearToken(res);
   res.status(200).json({ message: "User logged out" });
 };
 
-export { registerUser, authenticateUser, logoutUser };
+export { registerUser, authenticateUser, authCheckUser, logoutUser };

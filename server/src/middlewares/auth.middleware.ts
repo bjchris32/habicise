@@ -18,7 +18,7 @@ declare global {
 }
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies.token
+  const token = req.cookies.jwt
   if (!token) { return res.status(404).json({ message: "Invalid token" }); }
 
   jwt.verify(
