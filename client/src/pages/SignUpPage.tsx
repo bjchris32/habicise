@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleSave = async () => {
+  const handleSave = async (userId?: string) => {
+    // TODO: redirect to user's habit summary
     navigate('/');
   };
 

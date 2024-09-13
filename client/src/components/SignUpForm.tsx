@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { IUserRegistrationRequest, registerUser } from '../services/authentications-services';
+import { IUserRegistrationRequest, IUserRegistrationResponse, registerUser } from '../services/authentications-services';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
 interface SignUpFormProps {
-  onSave: () => void;
+  onSave: (userId?: string) => void;
 }
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
@@ -36,9 +36,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
       setError((prevError) => ({ ...prevError, password: true }));
       return
     }
-    await registerUser(auth);
+    const registerResponse: IUserRegistrationResponse = await registerUser(auth);
     setAuth(initialState);
-    onSave();
+    onSave(registerResponse._id);
   };
 
   return (
