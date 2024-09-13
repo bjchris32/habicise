@@ -24,6 +24,10 @@ export interface IUserLoginRequest {
   password: string;
 }
 
+export interface IUserCheckAuthResponse {
+  status: number;
+}
+
 export const registerUser = async (registrationData: IUserRegistrationRequest): Promise<IUserRegistrationResponse> => {
   // TODO: error handling
   const response = await axiosInstance.post<IUserRegistrationRequest>('/register', registrationData);
@@ -34,6 +38,12 @@ export const loginUser = async (auth: IUserLoginRequest): Promise<IUserLoginResp
   // TODO: error handling
   const response = await axiosInstance.post<IUserLoginRequest>('/login', auth);
   return response.data;
+};
+
+export const checkAuth = async (): Promise<IUserCheckAuthResponse> => {
+  // TODO: error handling
+  const response = await axiosInstance.get('/auth/check');
+  return response;
 };
 
 // TODO: add logout service
