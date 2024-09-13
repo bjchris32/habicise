@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 import { checkAuth } from '../services/authentications-services';
 
 // Define the shape of the context value
@@ -20,7 +19,6 @@ interface AuthProviderProps {
 // Create the AuthProvider component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [cookies] = useCookies(['jwt']);
 
   // Function to log in the user
   const login = () => setIsLoggedIn(true);
