@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
 
   const handleSave = async (userId?: string) => {
     // TODO: redirect to user's habit list page
-    navigate('/');
+    navigate('/mockUserId/habits');
   };
 
   return (
