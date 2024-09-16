@@ -27,7 +27,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => setIsLoggedIn(false);
 
   useEffect(() => {
-    const checkAuthFunc = async () => {
+    const handleAuth = async () => {
       try {
         const response = await checkAuth();
         if (response.status === 200) {
@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     }
 
-    checkAuthFunc();
+    handleAuth();
   },[])
 
   return (
