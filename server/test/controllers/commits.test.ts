@@ -1,35 +1,13 @@
 // npm test -- test/controllers/habits.test.ts
-import { dbConnect, dbDisconnect } from "../utils/dbHandler"
-import express, { Express, Request, Response } from "express";
-import router from '../../src/config/routes';
+import { authSetup } from '../utils/authSetup'
+import { setupDB } from "../utils/dbHandler"
+import app from '../utils/routesSetup'
 import request from 'supertest';
 import { Habit, IHabit } from "../../src/models/habit";
 import { Commit } from "../../src/models/commit";
-import { Document, Types } from "mongoose";
-import { authenticate } from "../../src/middlewares/auth.middleware";
 
-// TODO: put into test util to set up routes
-const app = express();
-app.use(express.json());
-app.use('/api', router);
-
-// Mock the auth middlewares
-jest.mock('./../../src/middlewares/auth.middleware', () => ({
-  authenticate: jest.fn(),
-}));
-
-const mockAuthenticate = authenticate as jest.Mock;
-mockAuthenticate.mockImplementation(async (req, res, next) => {
-  next(); // Call `next` to simulate successful authentication
-});
-
-beforeEach(async () => {
-  await dbConnect();
-});
-
-afterEach(async () => {
-  await dbDisconnect();
-});
+authSetup();
+setupDB();
 
 describe("Habits functions", () => {
   // TODO: figure out why we can not use IHabit as type
