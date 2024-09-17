@@ -80,14 +80,32 @@ describe("Auth functions", () => {
     expect(checkAuthResponse.status).toBe(200);
   });
 
-  // it("should logout", async () => {
-  //   const commit = new Commit({ description: 'commit to habit 1', length: 5, habit: habit._id });
-  //   const savedCommit = await commit.save();
-  //   const response = await request(app)
-  //     .delete(`/api/commits/${savedCommit._id}`)
-  //   expect(response.status).toBe(200);
-  //   expect(response.body.message).toBe ('Commit deleted successfully');
+  it("should clear the cookie", async () => {
+    const user = new User({
+      name: 'First User',
+      email: 'first@gmail.com',
+      password: 'test123'
+    });
+    await user.save();
 
-  //   // TODO: check commit is deleted in habit
-  // });
+    const loginResponse = await request(app)
+      .post('/api/login')
+      .send({
+        email: 'first@gmail.com',
+        password: 'test123'
+      });
+
+    const loginCookie = loginResponse.headers['set-cookie'];
+    expect(loginCookie).toBeDefined();
+
+    const logoutUserResponse = await request(app)
+      .post('/api/logout')
+      .set('Cookie', loginCookie);
+
+    const clearedCookie = logoutUserResponse.headers['set-cookie'];
+    const parsedCookies = cookie.parse(clearedCookie[0]);
+    const jwtCookie = parsedCookies.jwt;
+
+    expect(jwtCookie).toBe('');
+  });
 });
