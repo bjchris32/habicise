@@ -4,11 +4,22 @@ import express, { Express, Request, Response } from "express";
 import router from '../../src/config/routes';
 import request from 'supertest';
 import { Habit } from "../../src/models/habit";
+import { authenticate } from "../../src/middlewares/auth.middleware";
 
 // TODO: put into test util to set up routes
 const app = express();
 app.use(express.json());
 app.use('/api', router);
+
+// Mock the auth middlewares
+jest.mock('./../../src/middlewares/auth.middleware', () => ({
+  authenticate: jest.fn(),
+}));
+
+const mockAuthenticate = authenticate as jest.Mock;
+mockAuthenticate.mockImplementation(async (req, res, next) => {
+  next(); // Call `next` to simulate successful authentication
+});
 
 beforeEach(async () => {
   await dbConnect();
