@@ -1,56 +1,64 @@
-import React, { useState, useEffect }  from 'react';
+import { useContext }  from 'react';
 import './App.css';
-import HabitList from './components/HabitList';
-import HabitForm from './components/HabitForm';
-import { IHabit, getHabits } from './services/habits';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+
+import { Route, Routes } from 'react-router-dom';
+import SignUpPage from './pages/SignUpPage';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import HabitListPage from './pages/HabitListPage';
+
+import { AuthContext } from './contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { logoutUser } from './services/authentications-services'
 
 function App() {
-  const [habits, setHabits] = useState<IHabit[]>([]);
-
-  useEffect(() => {
-    fetchHabits();
-  }, []);
-
-  const handleSave = async () => {
-    fetchHabits();
-  };
-
-  const fetchHabits = async () => {
-    const data = await getHabits();
-    setHabits(data);
-  };
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext); // Directly use useContext
+  if (!authContext) {
+    throw new Error('LoginForm must be used within an AuthProvider');
+  }
+  const { isLoggedIn, logout } = authContext;
 
   return (
-    <Container maxWidth={false}>
-      <Box
-        width="100%"
-        bgcolor="lightblue"
-        alignItems="center"
-        justifyContent="center"
-        display="flex"
-        flexDirection="column"
-        sx={{ my: 10 }}>
-        <Typography variant="h3" sx={{ mb: 2, textAlign: 'center' }}>
-          Habicise
-          <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'center', mb: 4 }}>
-            Cultivate your new habit in streaks like doing exercise
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            onClick={() => navigate('/')}>
+            Habicise
           </Typography>
-        </Typography>
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          width="100%" // Ensures the inner Box spans the full width of its parent
-        >
-          <HabitForm onSave={handleSave} />
-          <HabitList habits={habits} />
-        </Box>
-      </Box>
-    </Container>
+          {isLoggedIn ? (
+            <Button color="inherit" onClick={ async () => {
+              await logoutUser();
+              logout();
+            }}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button color="inherit" onClick={() => navigate('/login')}>
+                Login
+              </Button>
+              <Button color="inherit" onClick={() => navigate('/signup')}>
+                Signup
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/:userId/habits" element={<HabitListPage />} />
+      </Routes>
+    </>
   );
 }
 
