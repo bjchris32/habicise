@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { IUserRegistrationRequest, IUserRegistrationResponse, registerUser } from '../services/authentications-services';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { Button, Box, TextField, Typography } from '@mui/material';
 
 interface SignUpFormProps {
   onSave: (userId?: string) => void;
@@ -13,6 +11,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
   const initialError = { name: false, email: false, password: false };
   const [auth, setAuth] = useState<IUserRegistrationRequest>(initialState);
   const [error, setError] = useState(initialError);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,6 +23,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage('');
     if (auth.name.trim() === '') {
       setError((prevError) => ({ ...prevError, name: true }));
       return
@@ -36,9 +36,15 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
       setError((prevError) => ({ ...prevError, password: true }));
       return
     }
-    const registerResponse: IUserRegistrationResponse = await registerUser(auth);
-    setAuth(initialState);
-    onSave(registerResponse._id);
+
+    try {
+      const registerResponse: IUserRegistrationResponse = await registerUser(auth);
+      setAuth(initialState);
+      onSave(registerResponse._id);
+    } catch(error: any) {
+      setErrorMessage(error.response?.data?.message || 'Something went wrong!');
+      return
+    }
   };
 
   return (
@@ -89,6 +95,13 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
         error={error.password}
         helperText={error.password ? 'Password is required' : ''}
       />
+      {errorMessage && (
+        <Box my={2}>
+          <Typography color="error" variant="body2">
+            {errorMessage}
+          </Typography>
+        </Box>
+      )}
       <Button
         fullWidth
         type="submit"
