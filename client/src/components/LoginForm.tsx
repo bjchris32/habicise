@@ -41,6 +41,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
   return (
     <Box
       component="form"
+      display="flex"
+      flexDirection="column"
+      width="100%"
       sx={{
         display: 'flex',      // Flexbox container
         alignItems: 'center',
@@ -52,6 +55,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
     >
       <TextField
         required
+        fullWidth
         label="Email"
         name="email"
         value={auth.email}
@@ -61,6 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
       />
       <TextField
         required
+        fullWidth
         label="Password"
         name="password"
         value={auth.password}
@@ -68,7 +73,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
         error={error.password}
         helperText={error.password ? 'Password is required' : ''}
       />
+      <Box flexGrow={1} />
       <Button
+        fullWidth
         type="submit"
         variant="contained"
       >
