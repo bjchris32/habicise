@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid2';
 import { AuthContext } from '../contexts/AuthContext';
 import SignUpForm from '../components/SignUpForm'
 import LoginForm from '../components/LoginForm'
+import HabitsWidget from '../components/HabitsWidget'
 
 const HomePage: React.FC = () => {
   const authContext = useContext(AuthContext); // Directly use useContext
@@ -48,9 +49,12 @@ const HomePage: React.FC = () => {
             </Grid>
           </Grid>
         ) : (
-          <Typography variant="h5" align="center" sx={{ mt: 4 }}>
-            Welcome!
-          </Typography>
+          <>
+            <Typography variant="h5" align="center" sx={{ mt: 4 }}>
+              Welcome!
+            </Typography>
+            <HabitsWidget/>
+          </>
         )}
       </Box>
     </Container>

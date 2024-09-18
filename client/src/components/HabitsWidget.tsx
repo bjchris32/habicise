@@ -4,11 +4,7 @@ import HabitForm from './HabitForm';
 import { IHabit, getHabits } from '../services/habits';
 import { Box } from '@mui/material';
 
-interface HabitsWidgetProps {
-  userId: string;
-}
-
-const HabitsWidget: React.FC<HabitsWidgetProps> = ({ userId }) => {
+const HabitsWidget: React.FC = () => {
   const [habits, setHabits] = useState<IHabit[]>([]);
 
   useEffect(() => {
