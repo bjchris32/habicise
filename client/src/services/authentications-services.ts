@@ -1,6 +1,12 @@
 import axios from 'axios';
 import axiosInstance from "../api/axiosInstance";
 
+export interface UserBasicInfo {
+  _id: string;
+  name: string;
+  email: string;
+}
+
 export interface IUserRegistrationResponse {
   _id?: string;
   name: string;
@@ -26,6 +32,7 @@ export interface IUserLoginRequest {
 
 export interface IUserCheckAuthResponse {
   status: number;
+  user?: UserBasicInfo;
 }
 
 export interface IUserLogoutResponse {
@@ -45,9 +52,11 @@ export const loginUser = async (auth: IUserLoginRequest): Promise<IUserLoginResp
 };
 
 export const checkAuth = async (): Promise<IUserCheckAuthResponse> => {
-  // TODO: error handling
   const response = await axiosInstance.get('/auth/check');
-  return response;
+  // TODO: refine the interface
+  var retResponse: IUserCheckAuthResponse = { status: response.status };
+  retResponse.user = response.data.user
+  return retResponse;
 };
 
 export const logoutUser = async (): Promise<IUserLogoutResponse> => {

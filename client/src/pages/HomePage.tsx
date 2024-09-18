@@ -11,7 +11,7 @@ const HomePage: React.FC = () => {
   if (!authContext) {
     throw new Error('LoginForm must be used within an AuthProvider');
   }
-  const { isLoggedIn, login } = authContext;
+  const { isLoggedIn, userBasicInfo, login } = authContext;
 
   return (
     <Container maxWidth={false} disableGutters>
@@ -52,7 +52,10 @@ const HomePage: React.FC = () => {
         ) : (
           <>
             <Typography variant="h5" align="center" sx={{ mt: 4 }}>
-              Welcome!
+              Welcome! {userBasicInfo?.name}
+            </Typography>
+            <Typography variant="h5" align="center" sx={{ mt: 4 }}>
+              Keep it up!
             </Typography>
             <HabitsWidget/>
           </>
