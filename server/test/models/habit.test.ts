@@ -25,6 +25,7 @@ describe('Habit model test', () => {
 
     expect(savedHabit._id).toBeDefined();
     expect(savedHabit.name).toBe(habitData.name);
+    expect(savedHabit.user.toString()).toBe(savedUser.id);
     expect(savedHabit?.commits).toEqual([]);
   });
 
