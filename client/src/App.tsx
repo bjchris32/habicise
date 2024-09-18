@@ -36,6 +36,7 @@ function App() {
             <Button color="inherit" onClick={ async () => {
               await logoutUser();
               logout();
+              navigate('/')
             }}>
               Logout
             </Button>
@@ -56,7 +57,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/:userId/habits" element={<HabitListPage />} />
       </Routes>
     </>
   );
