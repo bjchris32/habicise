@@ -46,7 +46,16 @@ const authenticateUser = async (req: Request, res: Response) => {
 };
 
 const authCheckUser = async (req: Request, res: Response) => {
-  return res.status(200).json({ message: "User is found" });
+  return res.
+    status(200).
+    json({
+      message: "User is found",
+      user: {
+        id: req?.user?._id,
+        name: req?.user?.name,
+        email: req?.user?.email,
+      }
+    });
 };
 
 const logoutUser = (req: Request, res: Response) => {
