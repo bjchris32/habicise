@@ -55,6 +55,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
     >
       <TextField
         required
+        variant="standard"
         fullWidth
         label="Email"
         name="email"
@@ -64,6 +65,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
         helperText={error.email ? 'Email is required' : ''}
       />
       <TextField
+        type="password"
+        variant="standard"
         required
         fullWidth
         label="Password"

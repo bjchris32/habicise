@@ -57,6 +57,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
     >
       <TextField
         required
+        variant="standard"
         fullWidth
         label="User Name"
         name="name"
@@ -67,6 +68,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
       />
       <TextField
         required
+        variant="standard"
         fullWidth
         label="Email"
         name="email"
@@ -77,6 +79,8 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
       />
       <TextField
         fullWidth
+        variant="standard"
+        type="password"
         required
         label="Password"
         name="password"
