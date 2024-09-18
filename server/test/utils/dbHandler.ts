@@ -13,3 +13,13 @@ export const dbDisconnect = async () => {
   await mongoose.disconnect();
   await mongoServer.stop();
 };
+
+export const setupDB = () => {
+  beforeEach(async () => {
+    await dbConnect();  // Connect to the database before each test
+  });
+
+  afterEach(async () => {
+    await dbDisconnect();  // Disconnect after each test
+  });
+};

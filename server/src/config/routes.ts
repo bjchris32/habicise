@@ -1,6 +1,6 @@
-import * as auths from '../controllers/auths'
-import * as habits from '../controllers/habits'
-import * as commits from '../controllers/commits'
+import * as auths from '../controllers/auths.controller'
+import * as habits from '../controllers/habits.controller'
+import * as commits from '../controllers/commits.controller'
 import { authenticate } from '../middlewares/auth.middleware'
 
 /**
