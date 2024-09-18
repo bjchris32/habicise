@@ -4,12 +4,14 @@ import { Schema, model, Types } from 'mongoose';
 export interface IHabit {
   name: string;
   commits: Types.ObjectId[];
+  user: Types.ObjectId;
 }
 
 // 2. Create a Schema corresponding to the document interface.
 const habitSchema = new Schema<IHabit>({
   name: { type: String, required: [true, 'habit name required'] },
-  commits: [{ type: Schema.Types.ObjectId, ref: 'Commit' }]
+  commits: [{ type: Schema.Types.ObjectId, ref: 'Commit' }],
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: [true, 'user required'] }
 }, { timestamps: true });
 
 // 3. Create a Model.

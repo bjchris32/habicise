@@ -1,10 +1,11 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import bcrypt from "bcryptjs";
 
 export interface IUser {
   name: string;
   email: string;
   password: string;
+  habits: Types.ObjectId[];
   comparePassword: (enteredPassword: string) => boolean;
 }
 
@@ -22,6 +23,7 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  habits: [{ type: Schema.Types.ObjectId, ref: 'Habit' }]
 });
 
 userSchema.pre("save", async function (next) {
