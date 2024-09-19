@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { checkAuth } from '../services/authentications-services';
+import { UserBasicInfo } from '../services/authentications-services'
 
 // Define the shape of the context value
 interface AuthContextType {
   isLoggedIn: boolean;
+  userBasicInfo: UserBasicInfo | null;
   login: () => void;
   logout: () => void;
 }
@@ -19,6 +21,7 @@ interface AuthProviderProps {
 // Create the AuthProvider component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [userBasicInfo, setUserBasicInfo] = useState<UserBasicInfo | null>(null);
 
   // Function to log in the user
   const login = () => setIsLoggedIn(true);
@@ -32,11 +35,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const response = await checkAuth();
         if (response.status === 200) {
           setIsLoggedIn(true); // User is authenticated
+          if(response.user === undefined) {
+            setUserBasicInfo(null);
+          } else {
+            setUserBasicInfo(response.user);
+          }
         } else {
           setIsLoggedIn(false); // User is not authenticated
+          setUserBasicInfo(null);
         }
       } catch (error) {
         setIsLoggedIn(false); // Handle any errors or 401 Unauthorized status
+        setUserBasicInfo(null);
       }
     }
 
@@ -44,7 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   },[])
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, userBasicInfo, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

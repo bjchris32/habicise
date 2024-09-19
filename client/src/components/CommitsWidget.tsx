@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IHabit } from '../services/habits';
 import { ICommitByDateOutput, getCommitsByDate } from '../services/commits';
 import CommitList from './CommitList';
-import CommitForm from './CommitForm';
+import CommitModal from './CommitModal';
 
 interface CommitsWidgetProps {
   habit: IHabit;
@@ -28,7 +28,7 @@ const CommitsWidget: React.FC<CommitsWidgetProps> = ({ habit }) => {
 
   return (
     <div>
-      <CommitForm onSave={handleCommitSave} habit={habit}/>
+      <CommitModal onSave={handleCommitSave} habit={habit}/>
       <CommitList commitsByDate={commitsByDate}/>
     </div>
   )

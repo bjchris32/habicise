@@ -4,7 +4,6 @@ import { ICommit, createCommit } from '../services/commits';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
 interface CommitFormProps {
   onSave: (habitId: string) => void;
@@ -45,17 +44,11 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
         flexDirection: 'column',
         gap: 2,  // Space between elements
         p: 2,    // Padding around the form
-        borderRadius: 1,
-        boxShadow: 5,
-        bgcolor: 'background.paper'
       }}
       onSubmit={handleSubmit}
       noValidate
       autoComplete="off"
     >
-      <Typography variant="h6" sx={{ mb: 2 }}>
-        Commit Details
-      </Typography>
       <TextField
         required
         label="Describe what you did today"
@@ -81,7 +74,7 @@ const CommitForm: React.FC<CommitFormProps> = ({ onSave, habit }) => {
         color="primary"
         sx={{ textTransform: 'none' }}
       >
-        Commit to {habit.name}
+        Commit
       </Button>
     </Box>
   );

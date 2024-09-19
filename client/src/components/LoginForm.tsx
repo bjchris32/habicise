@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { IUserLoginRequest, IUserLoginResponse, loginUser } from '../services/authentications-services';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { Button, Box, TextField, Typography } from '@mui/material';
 
 interface LoginFormProps {
   onSave: (userId?: string) => void;
@@ -13,6 +11,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
   const initialError = { email: false, password: false };
   const [auth, setAuth] = useState<IUserLoginRequest>(initialState);
   const [error, setError] = useState(initialError);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,6 +23,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage('');
     if (auth.email.trim() === '') {
       setError((prevError) => ({ ...prevError, email: true }));
       return
@@ -33,14 +33,22 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
       return
     }
 
-    const loginResponse: IUserLoginResponse = await loginUser(auth);
-    setAuth(initialState);
-    onSave(loginResponse._id);
+    try {
+      const loginResponse: IUserLoginResponse = await loginUser(auth);
+      setAuth(initialState);
+      onSave(loginResponse._id);
+    } catch(error: any) {
+      setErrorMessage(error.response?.data?.message || 'Something went wrong!');
+      return
+    }
   };
 
   return (
     <Box
       component="form"
+      display="flex"
+      flexDirection="column"
+      width="100%"
       sx={{
         display: 'flex',      // Flexbox container
         alignItems: 'center',
@@ -52,6 +60,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
     >
       <TextField
         required
+        variant="standard"
+        fullWidth
         label="Email"
         name="email"
         value={auth.email}
@@ -60,7 +70,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
         helperText={error.email ? 'Email is required' : ''}
       />
       <TextField
+        type="password"
+        variant="standard"
         required
+        fullWidth
         label="Password"
         name="password"
         value={auth.password}
@@ -68,7 +81,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
         error={error.password}
         helperText={error.password ? 'Password is required' : ''}
       />
+      {errorMessage && (
+        <Box my={2}>
+          <Typography color="error" variant="body2">
+            {errorMessage}
+          </Typography>
+        </Box>
+      )}
       <Button
+        fullWidth
         type="submit"
         variant="contained"
       >

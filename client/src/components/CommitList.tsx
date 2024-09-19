@@ -8,12 +8,16 @@ interface CommitListProps {
 }
 
 const CommitList: React.FC<CommitListProps> = ({ commitsByDate }) => {
-  // TODO: adjust the date range instead of adding dumb data
+  // show the past one year history from today
+  const moment = require('moment');
+  const currentDate = moment().subtract(1, 'year').format('YYYY-MM-DD');
+
   const data = [
+    // dummy
     {
-      "date": "2023-12-14",
-      "count": 2,
-      "level": 1
+      date: currentDate, // start
+      count: 0,
+      level: 0,
     },
     ...commitsByDate
   ]
@@ -32,8 +36,10 @@ const CommitList: React.FC<CommitListProps> = ({ commitsByDate }) => {
           showWeekdayLabels={true}
           // TODO: change the theme
           theme={{
+            // light: ['hsl(0, 0%, 92%)', 'rebeccapurple'],
+            // dark: ['hsl(0, 0%, 22%)', 'hsl(225,92%,77%)'],
             light: ['hsl(0, 0%, 92%)', 'rebeccapurple'],
-            dark: ['hsl(0, 0%, 22%)', 'hsl(225,92%,77%)'],
+            dark: ['hsl(0, 0%, 92%)', 'rebeccapurple'],
           }}
         />
       </div>

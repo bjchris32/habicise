@@ -7,7 +7,6 @@ import { Route, Routes } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import HabitListPage from './pages/HabitListPage';
 
 import { AuthContext } from './contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -36,6 +35,7 @@ function App() {
             <Button color="inherit" onClick={ async () => {
               await logoutUser();
               logout();
+              navigate('/')
             }}>
               Logout
             </Button>
@@ -56,7 +56,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/:userId/habits" element={<HabitListPage />} />
       </Routes>
     </>
   );
