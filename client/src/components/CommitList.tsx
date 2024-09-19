@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ICommit, ICommitByDateOutput } from '../services/commits';
 import Typography from '@mui/material/Typography';
 import ActivityCalendar from 'react-activity-calendar';
-// import * as moment from 'moment';
 
 interface CommitListProps {
   commitsByDate: ICommitByDateOutput[] | [];
