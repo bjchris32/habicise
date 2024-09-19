@@ -45,14 +45,13 @@ export const listCommits = async (req: Request, res: Response) => {
 
 export const listCommitsByDate = async (req: Request, res: Response) => {
   try {
-    // TODO: filter with user id
+    // TODO: only show the past one year
     const commitsByDate = await Commit.aggregate([
       { $match : { habit: new mongoose.Types.ObjectId(req.params.id) } },
       {
         $group: {
           _id: {
             $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
-
           },
           count: { $sum: 1 },
         },
