@@ -4,6 +4,7 @@ import { setupDB } from "../utils/dbHandler"
 import app from '../utils/routesSetup'
 import request from 'supertest';
 import { Habit, IHabit } from "../../src/models/habit";
+import { User } from "../../src/models/user";
 import { Commit } from "../../src/models/commit";
 
 authSetup();
@@ -14,8 +15,16 @@ describe("Habits functions", () => {
   let habit: any;
 
   beforeEach(async () => {
+    const user = new User({
+      name: 'First User',
+      email: 'first@gmail.com',
+      password: 'test123'
+    });
+    const savedUser = await user.save();
+
     habit = new Habit({
-      name: 'First Habit'
+      name: 'First Habit',
+      user: savedUser.id
     });
     await habit.save();
   });

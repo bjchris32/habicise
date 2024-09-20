@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { User } from "../../src/models/user";
 import { Habit } from "../../src/models/habit";
 import { ICommit, Commit } from "../../src/models/commit";
 import { dbConnect, dbDisconnect } from "../utils/dbHandler"
@@ -14,7 +14,14 @@ afterAll(async () => {
 
 describe('Commit model test', () => {
   it('should create & save commit with habit successfully', async () => {
-    const habit = new Habit({ name: 'Parent 1' });
+    const user = new User({
+      name: 'First User',
+      email: 'first@gmail.com',
+      password: 'test123'
+    });
+    const savedUser = await user.save();
+
+    const habit = new Habit({ name: 'Parent 1', user: savedUser.id });
     const savedHabit = await habit.save();
 
     const commit1 = new Commit({ description: 'commit 1 description', habit: habit._id });
