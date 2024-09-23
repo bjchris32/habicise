@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const mongoURI = process.env.MONGO_URI || 'mongodb://mongodb:27017/mydatabase';
+
 mongoose.connect(mongoURI).then(() => {
   console.log('Connected to MongoDB');
 }).catch((err: any) => {
@@ -16,11 +17,12 @@ mongoose.connect(mongoURI).then(() => {
 });
 
 const app: Express = express();
-const port = process.env.PORT || 4002;
+const backend_port = process.env.PORT || 4002;
+const frontend_endpoint = process.env.FRONTEND_ENDPOINT || 'http://localhost';
 const frontend_port = process.env.FRONTEND_PORT || 4001;
 
 app.use(cors({
-  origin: `http://localhost:${frontend_port}`,
+  origin: `${frontend_endpoint}:${frontend_port}`,
   credentials: true, // Allow cookies to be sent
 }));
 app.use(cookieParser());
@@ -54,6 +56,6 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use('/api', router);
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+app.listen(backend_port, () => {
+  console.log(`[server]: Server is running at port: ${backend_port}`);
 });

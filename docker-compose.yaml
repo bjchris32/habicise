@@ -5,7 +5,9 @@ services:
       context: ./server/
       dockerfile: Dockerfile
     environment:
-      MONGO_URI: mongodb://mongodb:27017/mydatabase
+      - JWT_SECRET=${JWT_SECRET}
+      - NODE_ENV=${NODE_ENV}
+      - MONGO_URI=${MONGO_URI}
     ports:
       - '4002:4002'
     depends_on:
