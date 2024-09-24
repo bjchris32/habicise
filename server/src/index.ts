@@ -21,8 +21,12 @@ const backend_port = process.env.PORT || 4002;
 const frontend_endpoint = process.env.FRONTEND_ENDPOINT || 'http://localhost';
 const frontend_port = process.env.FRONTEND_PORT || 4001;
 
+const frontendUrl = (process.env.NODE_ENV !== "development")
+  ? `${frontend_endpoint}`
+  : `${frontend_endpoint}:${frontend_port}`;
+
 app.use(cors({
-  origin: `${frontend_endpoint}:${frontend_port}`,
+  origin: `${frontendUrl}`,
   credentials: true, // Allow cookies to be sent
 }));
 app.use(cookieParser());
