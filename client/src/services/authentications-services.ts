@@ -7,22 +7,10 @@ export interface UserBasicInfo {
   email: string;
 }
 
-export interface IUserRegistrationResponse {
-  _id?: string;
-  name: string;
-  email: string;
-}
-
 export interface IUserRegistrationRequest {
   name: string;
   email: string;
   password: string;
-}
-
-export interface IUserLoginResponse {
-  _id?: string;
-  name?: string;
-  email: string;
 }
 
 export interface IUserLoginRequest {
@@ -30,20 +18,16 @@ export interface IUserLoginRequest {
   password: string;
 }
 
-export interface IUserLogoutResponse {
-  status: number;
-}
-
-export const registerUser = async (registrationData: IUserRegistrationRequest): Promise<IUserRegistrationResponse> => {
+export const registerUser = async (registrationData: IUserRegistrationRequest): Promise<UserBasicInfo> => {
   // TODO: error handling
-  const response = await axiosInstance.post<IUserRegistrationRequest>('/register', registrationData);
-  return response.data;
+  const { data } = await axiosInstance.post<UserBasicInfo>('/register', registrationData);
+  return data;
 };
 
-export const loginUser = async (auth: IUserLoginRequest): Promise<IUserLoginResponse> => {
+export const loginUser = async (auth: IUserLoginRequest): Promise<UserBasicInfo> => {
   // TODO: error handling
-  const response = await axiosInstance.post<IUserLoginRequest>('/login', auth);
-  return response.data;
+  const { data } = await axiosInstance.post<UserBasicInfo>('/login', auth);
+  return data;
 };
 
 export const checkAuth = async (): Promise<{ status: number; user?: UserBasicInfo }> => {
@@ -52,8 +36,8 @@ export const checkAuth = async (): Promise<{ status: number; user?: UserBasicInf
   return { status, user };
 };
 
-export const logoutUser = async (): Promise<IUserLogoutResponse> => {
+export const logoutUser = async (): Promise<{ status: number }> => {
   // TODO: error handling
-  const response = await axiosInstance.post('/logout');
-  return response;
+  const { status } = await axiosInstance.post<{ status: number }>('/logout');
+  return { status: status };
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IUserRegistrationRequest, IUserRegistrationResponse, registerUser } from '../services/authentications-services';
+import { IUserRegistrationRequest, registerUser } from '../services/authentications-services';
 import { Button, Box, TextField, Typography } from '@mui/material';
 
 interface SignUpFormProps {
@@ -38,9 +38,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
     }
 
     try {
-      const registerResponse: IUserRegistrationResponse = await registerUser(auth);
+      const { _id } = await registerUser(auth);
       setAuth(initialState);
-      onSave(registerResponse._id);
+      onSave(_id);
     } catch(error: any) {
       setErrorMessage(error.response?.data?.message || 'Something went wrong!');
       return
