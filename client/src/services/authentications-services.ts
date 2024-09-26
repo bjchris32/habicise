@@ -30,11 +30,6 @@ export interface IUserLoginRequest {
   password: string;
 }
 
-export interface IUserCheckAuthResponse {
-  status: number;
-  user?: UserBasicInfo;
-}
-
 export interface IUserLogoutResponse {
   status: number;
 }
@@ -51,12 +46,10 @@ export const loginUser = async (auth: IUserLoginRequest): Promise<IUserLoginResp
   return response.data;
 };
 
-export const checkAuth = async (): Promise<IUserCheckAuthResponse> => {
-  const response = await axiosInstance.get('/auth/check');
-  // TODO: refine the interface
-  var retResponse: IUserCheckAuthResponse = { status: response.status };
-  retResponse.user = response.data.user
-  return retResponse;
+export const checkAuth = async (): Promise<{ status: number; user?: UserBasicInfo }> => {
+  const response = await axiosInstance.get<{ user: UserBasicInfo }>('/auth/check');
+  const { status, data: { user } } = response;
+  return { status, user };
 };
 
 export const logoutUser = async (): Promise<IUserLogoutResponse> => {
