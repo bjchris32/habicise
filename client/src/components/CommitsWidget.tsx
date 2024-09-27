@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { IHabit } from '../services/habits';
 import { ICommitsListByDate, getCommitsByDate } from '../services/commits';
+import Box from '@mui/material/Box';
 import CommitList from './CommitList';
 import CommitModal from './CommitModal';
 
@@ -25,11 +26,11 @@ const CommitsWidget: React.FC<CommitsWidgetProps> = ({ habit }) => {
     const data = await getCommitsByDate(habitId);
     const moment = require('moment');
     // TODO: set more recent dummy date if device screen size is smaller
-    const currentDate = moment().subtract(1, 'year').format('YYYY-MM-DD');
+    const pastDate = moment().subtract(1, 'year').format('YYYY-MM-DD');
     const trackBackdata = [
       // dummy
       {
-        date: currentDate, // start
+        date: pastDate, // start
         count: 0,
         level: 0,
       },
@@ -39,10 +40,20 @@ const CommitsWidget: React.FC<CommitsWidgetProps> = ({ habit }) => {
   };
 
   return (
-    <div>
-      <CommitModal onSave={handleCommitSave} habit={habit}/>
-      <CommitList commitsByDate={commitsByDate}/>
-    </div>
+    <Box
+      display="flex"
+      flexDirection="column"
+      padding={2}
+    >
+      <CommitModal onSave={handleCommitSave} habit={habit} />
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <CommitList commitsByDate={commitsByDate} />
+      </Box>
+    </Box>
   )
 }
 
