@@ -1,36 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { ICommit, ICommitByDateOutput } from '../services/commits';
+import React from 'react';
+import { ICommitsListByDate } from '../services/commits-services';
 import Typography from '@mui/material/Typography';
 import ActivityCalendar from 'react-activity-calendar';
+import Box from '@mui/material/Box';
 
 interface CommitListProps {
-  commitsByDate: ICommitByDateOutput[] | [];
+  commitsByDate: ICommitsListByDate[];
 }
 
 const CommitList: React.FC<CommitListProps> = ({ commitsByDate }) => {
-  // show the past one year history from today
-  const moment = require('moment');
-  const currentDate = moment().subtract(1, 'year').format('YYYY-MM-DD');
-
-  const data = [
-    // dummy
-    {
-      date: currentDate, // start
-      count: 0,
-      level: 0,
-    },
-    ...commitsByDate
-  ]
-
   if (commitsByDate && commitsByDate.length > 0) {
     return (
-      <div>
+      <Box sx={{ mr: 2, width: { xs: '90%' } }}>
         <Typography variant="h5" sx={{ mb: 2 }} >
           Your past commitments:
         </Typography>
         <ActivityCalendar
           maxLevel={1}
-          data={data}
+          data={commitsByDate}
           blockMargin={5}
           hideMonthLabels={false}
           showWeekdayLabels={true}
@@ -42,7 +29,7 @@ const CommitList: React.FC<CommitListProps> = ({ commitsByDate }) => {
             dark: ['hsl(0, 0%, 92%)', 'rebeccapurple'],
           }}
         />
-      </div>
+      </Box>
     )
   } else {
     return (

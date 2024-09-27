@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CommitForm from './CommitForm';
-import { IHabit } from '../services/habits';
+import { IHabit } from '../services/habits-services';
 
 interface CommitModalProps {
   onSave: (habitId: string) => void;

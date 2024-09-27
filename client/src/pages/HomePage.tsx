@@ -21,12 +21,6 @@ const HomePage: React.FC = () => {
         display="flex"
         flexDirection="column"
       >
-        <Typography variant="h3" sx={{ mb: 2, textAlign: 'center' }}>
-          Habicise
-          <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'center', mb: 4 }}>
-            Cultivate your new habit in streaks like doing exercise
-          </Typography>
-        </Typography>
         {!isLoggedIn ? (
           <Grid
             container
@@ -51,11 +45,8 @@ const HomePage: React.FC = () => {
           </Grid>
         ) : (
           <>
-            <Typography variant="h5" align="center" sx={{ mt: 4 }}>
+            <Typography variant="h5" align="center" sx={{ m: 4 }}>
               Welcome! {userBasicInfo?.name}
-            </Typography>
-            <Typography variant="h5" align="center" sx={{ mt: 4 }}>
-              Keep it up!
             </Typography>
             <HabitsWidget/>
           </>

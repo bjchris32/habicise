@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { IHabit, createHabit } from '../services/habits';
+import { IHabit, createHabit } from '../services/habits-services';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 interface HabitFormProps {
   onSave: () => void;
@@ -12,6 +13,8 @@ interface HabitFormProps {
 const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
   const [habit, setHabit] = useState<IHabit>({ name: '' });
   const [error, setError] = useState(false);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,15 +39,18 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
     <Box
       component="form"
       sx={{
-        display: 'flex',      // Flexbox container
+        display: 'flex',
+        flexDirection: isSmallScreen ? 'column' : 'row',
         alignItems: 'center',
-        gap: 1               // Space between elements
+        justifyContent: 'center',
+        gap: 1,
+        width: { xs: '90%', sm: '75%' }
       }}
       onSubmit={handleSubmit}
       noValidate
       autoComplete="off"
     >
-      <Typography variant="h4" component="h1" sx={{ mb: 2 }} >
+      <Typography variant="h5">
         Create your habit here:
       </Typography>
       <TextField
@@ -55,10 +61,12 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
         onChange={handleChange}
         error={error}
         helperText={error ? 'Habit name is required' : ''}  // Show error message
+        fullWidth={isSmallScreen} // Make the text field take full width on small screens
       />
       <Button
         type="submit"
         variant="contained"
+        fullWidth={isSmallScreen} // Make the button take full width on small screens
       >
         Save
       </Button>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import HabitList from './HabitList';
 import HabitForm from './HabitForm';
-import { IHabit, getHabits } from '../services/habits';
+import { IHabit, getHabits } from '../services/habits-services';
 import { Box } from '@mui/material';
 
 const HabitsWidget: React.FC = () => {
@@ -29,7 +29,14 @@ const HabitsWidget: React.FC = () => {
       width="100%" // Ensures the inner Box spans the full width of its parent
     >
       <HabitForm onSave={handleSave} />
-      { habits.length > 0 ? <HabitList habits={habits} /> : null }
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        sx={{ mr: 2, width: { xs: '90%', sm: '75%' } }}
+      >
+        { habits.length > 0 ? <HabitList habits={habits} /> : null }
+      </Box>
     </Box>
   )
 

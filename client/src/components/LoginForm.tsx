@@ -21,16 +21,22 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSave }) => {
     }
   };
 
+  const checkEmptyField = (field: keyof IUserLoginRequest) => {
+    if (auth[field].trim() === '') {
+      setError((prevError) => ({ ...prevError, [field]: true }));
+      return true;
+    }
+    return false;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage('');
-    if (auth.email.trim() === '') {
-      setError((prevError) => ({ ...prevError, email: true }));
-      return
-    }
-    if (auth.password.trim() === '') {
-      setError((prevError) => ({ ...prevError, password: true }));
-      return
+    const fields: (keyof IUserLoginRequest)[] = ['email', 'password'];
+    for (const field of fields) {
+      if (checkEmptyField(field)) {
+        return;
+      }
     }
 
     try {

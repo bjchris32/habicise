@@ -21,20 +21,22 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSave }) => {
     }
   };
 
+  const checkEmptyField = (field: keyof IUserRegistrationRequest) => {
+    if (auth[field].trim() === '') {
+      setError((prevError) => ({ ...prevError, [field]: true }));
+      return true;
+    }
+    return false;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage('');
-    if (auth.name.trim() === '') {
-      setError((prevError) => ({ ...prevError, name: true }));
-      return
-    }
-    if (auth.email.trim() === '') {
-      setError((prevError) => ({ ...prevError, email: true }));
-      return
-    }
-    if (auth.password.trim() === '') {
-      setError((prevError) => ({ ...prevError, password: true }));
-      return
+    const fields: (keyof IUserRegistrationRequest)[] = ['name', 'email', 'password'];
+    for (const field of fields) {
+      if (checkEmptyField(field)) {
+        return;
+      }
     }
 
     try {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { IHabit } from '../services/habits';
-import { ICommit, createCommit } from '../services/commits';
+import { IHabit } from '../services/habits-services';
+import { ICommit, createCommit } from '../services/commits-services';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
