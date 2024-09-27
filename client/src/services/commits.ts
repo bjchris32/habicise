@@ -10,12 +10,7 @@ export interface ICommit {
   createdAt?: string;
 }
 
-export interface ICommitByDateInput {
-  _id: string;
-  count: number;
-}
-
-export interface ICommitByDateOutput {
+export interface ICommitsListByDate {
   date: string;
   count: number;
   level: number;
@@ -26,14 +21,14 @@ export const getCommits = async (habitId: string): Promise<ICommit[]> => {
   return response.data;
 };
 
-export const getCommitsByDate = async (habitId: string): Promise<ICommitByDateOutput[]> => {
-  const response = await axiosInstance.get<ICommitByDateInput[]>(`${API_URL}/habit/${habitId}/commitsByDate`);
+export const getCommitsByDate = async (habitId: string): Promise<ICommitsListByDate[]> => {
+  const response = await axiosInstance.get<{ _id: string; count: number }[]>(`${API_URL}/habit/${habitId}/commitsByDate`);
   const commitsByDate = response.data.map((commitByDate) => {
     return (
       {
-        "date": commitByDate._id,
-        "count": commitByDate.count,
-        "level": 1
+        date: commitByDate._id,
+        count: commitByDate.count,
+        level: 1
       }
     )
   });
