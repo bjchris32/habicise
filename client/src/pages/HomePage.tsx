@@ -5,6 +5,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import SignUpForm from '../components/SignUpForm'
 import LoginForm from '../components/LoginForm'
 import HabitsWidget from '../components/HabitsWidget'
+import bannerImage from './../banner.jpeg';
 
 const HomePage: React.FC = () => {
   const authContext = useContext(AuthContext); // Directly use useContext
@@ -21,12 +22,24 @@ const HomePage: React.FC = () => {
         display="flex"
         flexDirection="column"
       >
-        <Typography variant="h3" sx={{ mb: 2, textAlign: 'center' }}>
-          Habicise
-          <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'center', mb: 4 }}>
-            Cultivate your new habit in streaks like doing exercise
+        <Box
+          sx={{
+            backgroundImage: `url(${bannerImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            padding: 4,
+            textAlign: 'center',
+            color: '#ffffff', // Set text color to white for better readability
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)', // Add text shadow for better contrast
+          }}
+        >
+          <Typography variant="h3" sx={{ mb: 2, textAlign: 'center' }}>
+            Habicise
+            <Typography variant="body1" sx={{ textAlign: 'center', mb: 2 }}>
+              Cultivate your new habit in streaks like doing exercise
+            </Typography>
           </Typography>
-        </Typography>
+        </Box>
         {!isLoggedIn ? (
           <Grid
             container
