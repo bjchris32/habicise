@@ -29,7 +29,14 @@ const HabitsWidget: React.FC = () => {
       width="100%" // Ensures the inner Box spans the full width of its parent
     >
       <HabitForm onSave={handleSave} />
-      { habits.length > 0 ? <HabitList habits={habits} /> : null }
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        sx={{ mr: 2, width: { xs: '90%', sm: '75%' } }}
+      >
+        { habits.length > 0 ? <HabitList habits={habits} /> : null }
+      </Box>
     </Box>
   )
 
