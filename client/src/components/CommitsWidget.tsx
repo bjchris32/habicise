@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IHabit } from '../services/habits';
-import { ICommitByDateOutput, getCommitsByDate } from '../services/commits';
+import { ICommitsListByDate, getCommitsByDate } from '../services/commits';
 import CommitList from './CommitList';
 import CommitModal from './CommitModal';
 
@@ -9,7 +9,7 @@ interface CommitsWidgetProps {
 }
 
 const CommitsWidget: React.FC<CommitsWidgetProps> = ({ habit }) => {
-  const [commitsByDate, setCommitsByDate] = useState<ICommitByDateOutput[]>([]);
+  const [commitsByDate, setCommitsByDate] = useState<ICommitsListByDate[]>([]);
 
   useEffect(() => {
     if (!!habit._id) {
@@ -23,7 +23,19 @@ const CommitsWidget: React.FC<CommitsWidgetProps> = ({ habit }) => {
 
   const fetchCommitsByDate = async (habitId: string) => {
     const data = await getCommitsByDate(habitId);
-    setCommitsByDate(data);
+    const moment = require('moment');
+    // TODO: set more recent dummy date if device screen size is smaller
+    const currentDate = moment().subtract(1, 'year').format('YYYY-MM-DD');
+    const trackBackdata = [
+      // dummy
+      {
+        date: currentDate, // start
+        count: 0,
+        level: 0,
+      },
+      ...data
+    ]
+    setCommitsByDate(trackBackdata);
   };
 
   return (
