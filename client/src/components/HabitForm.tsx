@@ -44,7 +44,7 @@ const HabitForm: React.FC<HabitFormProps> = ({ onSave }) => {
         alignItems: 'center',
         justifyContent: 'center',
         gap: 1,
-        width: '100%',
+        width: { xs: '90%', sm: '75%' }
       }}
       onSubmit={handleSubmit}
       noValidate
