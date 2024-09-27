@@ -2,6 +2,7 @@ import React from 'react';
 import { ICommitsListByDate } from '../services/commits';
 import Typography from '@mui/material/Typography';
 import ActivityCalendar from 'react-activity-calendar';
+import Box from '@mui/material/Box';
 
 interface CommitListProps {
   commitsByDate: ICommitsListByDate[];
@@ -10,7 +11,7 @@ interface CommitListProps {
 const CommitList: React.FC<CommitListProps> = ({ commitsByDate }) => {
   if (commitsByDate && commitsByDate.length > 0) {
     return (
-      <div>
+      <Box sx={{ mr: 2, width: { xs: '90%' } }}>
         <Typography variant="h5" sx={{ mb: 2 }} >
           Your past commitments:
         </Typography>
@@ -28,7 +29,7 @@ const CommitList: React.FC<CommitListProps> = ({ commitsByDate }) => {
             dark: ['hsl(0, 0%, 92%)', 'rebeccapurple'],
           }}
         />
-      </div>
+      </Box>
     )
   } else {
     return (
