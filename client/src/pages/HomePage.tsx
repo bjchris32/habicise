@@ -64,11 +64,8 @@ const HomePage: React.FC = () => {
           </Grid>
         ) : (
           <>
-            <Typography variant="h5" align="center" sx={{ mt: 4 }}>
+            <Typography variant="h5" align="center" sx={{ m: 4 }}>
               Welcome! {userBasicInfo?.name}
-            </Typography>
-            <Typography variant="h5" align="center" sx={{ mt: 4 }}>
-              Keep it up!
             </Typography>
             <HabitsWidget/>
           </>
