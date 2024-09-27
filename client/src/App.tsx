@@ -1,7 +1,7 @@
 import { useContext }  from 'react';
 import './App.css';
 
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography, Button } from '@mui/material';
 
 import { Route, Routes } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
@@ -11,6 +11,8 @@ import LoginPage from './pages/LoginPage';
 import { AuthContext } from './contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from './services/authentications-services'
+
+import bannerImage from './banner.jpeg';
 
 function App() {
   const navigate = useNavigate();
@@ -51,6 +53,25 @@ function App() {
           )}
         </Toolbar>
       </AppBar>
+
+      <Box
+        sx={{
+          backgroundImage: `url(${bannerImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          padding: 4,
+          textAlign: 'center',
+          color: '#ffffff', // Set text color to white for better readability
+          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)', // Add text shadow for better contrast
+        }}
+      >
+        <Typography variant="h3" sx={{ mb: 2, textAlign: 'center' }}>
+          Habicise
+          <Typography variant="body1" sx={{ textAlign: 'center', mb: 2 }}>
+            Cultivate your new habit in streaks like doing exercise
+          </Typography>
+        </Typography>
+      </Box>
 
       <Routes>
         <Route path="/" element={<HomePage />} />
