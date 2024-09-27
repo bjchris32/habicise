@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICommitsListByDate } from '../services/commits';
+import { ICommitsListByDate } from '../services/commits-services';
 import Typography from '@mui/material/Typography';
 import ActivityCalendar from 'react-activity-calendar';
 import Box from '@mui/material/Box';

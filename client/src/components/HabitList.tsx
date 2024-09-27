@@ -1,5 +1,5 @@
 import React from 'react';
-import { IHabit } from '../services/habits';
+import { IHabit } from '../services/habits-services';
 import CommitsWidget from './CommitsWidget';
 import { Box, Card, CardContent, CardHeader, List, ListItem } from '@mui/material';
 

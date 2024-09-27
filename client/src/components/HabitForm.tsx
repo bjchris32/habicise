@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IHabit, createHabit } from '../services/habits';
+import { IHabit, createHabit } from '../services/habits-services';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import HabitList from './HabitList';
 import HabitForm from './HabitForm';
-import { IHabit, getHabits } from '../services/habits';
+import { IHabit, getHabits } from '../services/habits-services';
 import { Box } from '@mui/material';
 
 const HabitsWidget: React.FC = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { IHabit } from '../services/habits';
-import { ICommitsListByDate, getCommitsByDate } from '../services/commits';
+import { IHabit } from '../services/habits-services';
+import { ICommitsListByDate, getCommitsByDate } from '../services/commits-services';
 import Box from '@mui/material/Box';
 import CommitList from './CommitList';
 import CommitModal from './CommitModal';
